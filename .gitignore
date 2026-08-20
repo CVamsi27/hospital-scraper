@@ -1,0 +1,21 @@
+# Secrets
+.env
+.env.local
+
+# Output
+*.csv
+*.log
+checkpoint.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+
+# Editor
+.vscode/
+.idea/
+.DS_Store

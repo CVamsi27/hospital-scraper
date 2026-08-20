@@ -1,0 +1,7 @@
+[2026-07-31 21:08:09 IST] reply           +919876543210  Test Hospital                   Call me tomorrow at 5pm please
+[2026-07-31 21:08:09 IST] partner_signup  +919876543210  Test Hospital                   JOIN — Ramesh from MedPlus Kompally
+[2026-07-31 21:08:09 IST] stop            +919876543210  Test Hospital                   STOP
+[2026-07-31 21:08:09 IST] reply           +919876543210  Test Hospital                   Hi, what is the price for 2 doctors?
+[2026-07-31 21:08:09 IST] reply           +919059930965  Jaya Clinic                     DEMO pls call evening
+[2026-07-31 21:08:09 IST] reply           +919876543210  Test Hospital                   This is a test notification.
+[2026-07-31 23:07:41 IST] reply           +919876543210  Jaya Clinic                     DEMO please call after 6pm

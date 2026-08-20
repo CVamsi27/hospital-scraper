@@ -1,0 +1,114 @@
+# SMS templates for Docita outreach (Hyderabad lead lists).
+# Placeholders: {{name}}, {{area}}, {{phone}}, {{email}}, {{web}}, {{ref_link}}, {{partner_join_url}}
+#
+# Keep messages under ~320 chars (2 SMS segments) for cost control.
+# Finance must approve commission figures before live sends.
+#
+# IMPORTANT — two-track messaging per audience:
+#   * CLINIC campaigns → "try Docita" only. NO referral ask on first contact.
+#                          The referral template (docita_clinic_referral_v1) is
+#                          reserved for AFTER a clinic has onboarded, when we
+#                          want them to refer peers. Do NOT use it in the
+#                          initial cold-outreach blast.
+#   * PHARMACY + DIAGNOSTIC + PARTNER + MARKETING campaigns → partner join URL.
+
+campaigns:
+  clinic:
+    input: leads_hospitals_clinics.csv
+    default_template: docita_hms_sms_v1
+    tier_filter: T1
+    description: Clinics and hospitals — "try Docita" pitch only. No referral ask on first contact.
+
+  pharmacy:
+    input: leads_pharmacies.csv
+    default_template: docita_pharmacy_sms_v1
+    tier_filter: T1
+    description: Pharmacies — referral partner pitch (10% of net collected first-year revenue per approved plan)
+
+  diagnostic:
+    input: leads_diagnostics.csv
+    default_template: docita_diagnostics_sms_v1
+    tier_filter: T1
+    description: Diagnostics — refer nearby clinics/hospitals
+
+  partner:
+    input: partners.csv
+    default_template: docita_partner_sms_v1
+    tier_filter: all
+    description: Existing or prospective partners — approved partner-program invitation
+
+  marketing:
+    input: marketing_leads.csv
+    default_template: docita_marketing_sms_v1
+    tier_filter: all
+    description: Marketing and field partners — approved partner-program invitation
+
+templates:
+  # ---- CLINIC: first-contact "try Docita" pitches (default) ----
+  docita_hms_sms_v1:
+    audience: clinic/hospital
+    segments: 2
+    body: |
+      Hi {{name}}, running {{area}} clinic on paper/Excel/WhatsApp? Docita runs appointments, billing, EMR, Rx, invoices & follow-ups in one workspace. 15-min demo, no migration. Reply DEMO. {{phone}} | {{web}} Reply STOP to opt out.
+
+  docita_hms_sms_v2:
+    audience: clinic/hospital
+    segments: 1
+    body: |
+      Hi {{name}}, are you using any clinic software today? Docita handles appointments, billing, EMR, Rx & WhatsApp reminders. Reply YES (already using) or DEMO. {{phone}} | {{web}} Reply STOP to opt out.
+
+  # ---- CLINIC: post-onboarding peer-referral pitch ----
+  # NOT for cold outreach. Use only after a clinic has signed up, when we
+  # want them to refer other clinics (and earn free months per Docita's
+  # 5-conversions-per-free-month rule). See scripts/sms_send.py for the
+  # flag you need to override the default.
+  docita_clinic_referral_v1:
+    audience: clinic/hospital  # post-onboarding only
+    segments: 2
+    body: |
+      Hi {{name}}, refer a clinic to Docita — for every 5 that go live, you get 1 month free on your next billing. We handle demo + setup. Your ref link: {{ref_link}} {{phone}} | {{web}} Reply STOP to opt out.
+
+  # ---- PHARMACY: referral-partner pitch (this audience IS the partner) ----
+  docita_pharmacy_sms_v1:
+    audience: pharmacy
+    segments: 2
+    body: |
+      Hi {{name}}, earn 10% of net collected Docita subscription revenue for a referred facility's first 12 billed months. Join: {{partner_join_url}} or reply JOIN. {{phone}} | {{web}} Reply STOP to opt out.
+
+  docita_pharmacy_sms_v2:
+    audience: pharmacy
+    segments: 2
+    body: |
+      Hi {{name}}, Docita helps clinics in {{area}} go digital. Refer one to us, earn 10% of net collected subscription revenue for its first 12 billed months. Join: {{partner_join_url}} or reply REFER. {{phone}} Reply STOP to opt out.
+
+  # ---- DIAGNOSTIC: referral-partner pitch ----
+  docita_diagnostics_sms_v1:
+    audience: diagnostic lab
+    segments: 2
+    body: |
+      Hi {{name}}, Docita onboards clinics/hospitals in {{area}}. Know one that needs appointments, billing & EMR? Connect us for 10% of net collected revenue for its first 12 billed months. Join: {{partner_join_url}} or reply REFER. Reply STOP to opt out.
+
+  docita_partner_sms_v1:
+    audience: partner
+    segments: 2
+    body: |
+      Hi {{name}}, partner with Docita: refer clinics/hospitals and earn 10% of net collected subscription revenue for their first 12 billed months. Join: {{partner_join_url}} or reply JOIN. {{phone}} | {{web}} Reply STOP to opt out.
+
+  docita_marketing_sms_v1:
+    audience: marketing/field partner
+    segments: 2
+    body: |
+      Hi {{name}}, Docita is looking for field and marketing partners. Refer a clinic/hospital and earn 10% of net collected subscription revenue for its first 12 billed months. Join: {{partner_join_url}} or reply JOIN. Reply STOP to opt out.
+
+  # ---- Generic / fallback ----
+  docita_intro_sms_v1:
+    audience: any
+    segments: 2
+    body: |
+      Hi {{name}}, Docita — clinic & hospital software for India. Appointments, EMR, Rx, billing, WhatsApp reminders in one workspace. Free 15-min demo? Reply DEMO. {{phone}} | {{web}} Reply STOP to opt out.
+
+  docita_test_sms_v1:
+    audience: any
+    segments: 1
+    body: |
+      Docita SMS test from {{name}} ({{phone}}). Gateway OK. Reply STOP to opt out.
